@@ -68,7 +68,6 @@ import {
 } from "./lib/notifications";
 import { enablePushNotifications } from "./lib/push";
 
-
 type TabKey = "resumo" | "gastos" | "contas" | "alertas" | "historico";
 type TransactionType = "mikie" | "natalia" | "casa" | "compartilhado";
 type BillStatus = "pendente" | "paga" | "atrasada";
