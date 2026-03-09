@@ -289,15 +289,7 @@ export default function Home() {
   const [editModal, setEditModal] = useState<EditModalState>(null);
   const [modalBusy, setModalBusy] = useState(false);
 
-  async function handleEnablePush() {
-  try {
-    await enablePushNotifications();
-    alert("Notificações ativadas com sucesso.");
-  } catch (error) {
-    console.error("Erro ao ativar push:", error);
-    alert("Não foi possível ativar as notificações.");
-  }
-}
+  
 
   useEffect(() => {
     setDate(`${month}-01`);
@@ -2042,7 +2034,18 @@ const ref = doc(db, "settings", `monthlyBudget_${firebaseUser.uid}_${month}`);
                   <Bell size={18} />
                 </div>
 
-                <button className="primary-btn" onClick={handleEnablePush}>
+                <button
+  className="primary-btn"
+  onClick={async () => {
+    try {
+      await enablePushNotifications();
+      alert("Notificações ativadas com sucesso.");
+    } catch (error) {
+      console.error("Erro ao ativar push:", error);
+      alert("Não foi possível ativar as notificações.");
+    }
+  }}
+>
   Ativar notificações no celular
 </button>
 
