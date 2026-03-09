@@ -289,6 +289,16 @@ export default function Home() {
   const [editModal, setEditModal] = useState<EditModalState>(null);
   const [modalBusy, setModalBusy] = useState(false);
 
+  async function handleEnablePush() {
+  try {
+    await enablePushNotifications();
+    alert("Notificações ativadas com sucesso.");
+  } catch (error) {
+    console.error("Erro ao ativar push:", error);
+    alert("Não foi possível ativar as notificações.");
+  }
+}
+
   useEffect(() => {
     setDate(`${month}-01`);
     setBillDueDate(`${month}-10`);
@@ -311,16 +321,6 @@ export default function Home() {
         }
       }
     });
-
-    async function handleEnablePush() {
-  try {
-    await enablePushNotifications();
-    alert("Notificações ativadas com sucesso.");
-  } catch (error) {
-    console.error("Erro ao ativar push:", error);
-    alert("Não foi possível ativar as notificações.");
-  }
-}
 
     return () => unsubscribe();
   }, []);
