@@ -66,6 +66,8 @@ import {
   markSeen,
   reactivateNotification,
 } from "./lib/notifications";
+import { enablePushNotifications } from "./lib/push";
+
 
 type TabKey = "resumo" | "gastos" | "contas" | "alertas" | "historico";
 type TransactionType = "mikie" | "natalia" | "casa" | "compartilhado";
@@ -310,6 +312,16 @@ export default function Home() {
         }
       }
     });
+
+    async function handleEnablePush() {
+  try {
+    await enablePushNotifications();
+    alert("Notificações ativadas com sucesso.");
+  } catch (error) {
+    console.error("Erro ao ativar push:", error);
+    alert("Não foi possível ativar as notificações.");
+  }
+}
 
     return () => unsubscribe();
   }, []);
@@ -2030,6 +2042,10 @@ const ref = doc(db, "settings", `monthlyBudget_${firebaseUser.uid}_${month}`);
                   <h2>Central de notificações</h2>
                   <Bell size={18} />
                 </div>
+
+                <button className="primary-btn" onClick={handleEnablePush}>
+  Ativar notificações no celular
+</button>
 
                 <div className="stack">
                   {visibleNotifications.map((item) => {

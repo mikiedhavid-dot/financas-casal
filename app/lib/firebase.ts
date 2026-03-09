@@ -1,6 +1,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getMessaging, isSupported } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyApwRwGfRBGaDM6_EyiF8LNHYWDBuRuR8E",
@@ -13,5 +14,13 @@ const firebaseConfig = {
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+export async function getFirebaseMessaging() {
+  const supported = await isSupported();
+  if (!supported) return null;
+  return getMessaging(app);
+}
+
+
